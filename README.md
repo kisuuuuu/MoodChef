@@ -55,51 +55,8 @@ The app uses the **Spoonacular API** for real recipe data and **face-api.js** fo
 | Data fetching | SWR |
 | Animations | Framer Motion |
 | Recipe API | Spoonacular |
-| Emotion detection | face-api.js *(April 30)* |
-
 ---
 
-## Project Structure
-
-```
-moodchef/
-├── app/
-│   ├── page.tsx                  # Mood picker landing page
-│   ├── layout.tsx                # Root layout with theme injection
-│   ├── globals.css
-│   ├── recipe/
-│   │   └── [id]/page.tsx         # Recipe detail dynamic route
-│   ├── saved/
-│   │   └── page.tsx              # Saved/bookmarked recipes
-│   └── api/
-│       └── recipes/
-│           ├── search/route.ts   # Proxies Spoonacular search (server-side)
-│           └── [id]/route.ts     # Proxies Spoonacular detail (server-side)
-├── components/
-│   ├── MoodPicker.tsx            # 6 mood card selector
-│   ├── RecipeGrid.tsx            # Responsive recipe card grid
-│   ├── RecipeCard.tsx            # Single recipe card with bookmark
-│   ├── RecipeDetail.tsx          # Full recipe view
-│   ├── IngredientList.tsx        # Tap-to-cross-off checklist
-│   ├── MoodHistory.tsx           # Last 7 moods sidebar
-│   ├── Navbar.tsx                # Top navigation bar
-│   └── EmotionDetector.tsx       # face-api.js webcam (April 30)
-├── hooks/
-│   ├── useMood.ts                # Mood state and history
-│   ├── useRecipes.ts             # SWR-based recipe fetching
-│   └── useSaved.ts               # localStorage favorites CRUD
-├── lib/
-│   ├── moodMap.ts                # Mood → cuisine/tag/time/theme mapping
-│   ├── themes.ts                 # CSS variables per mood
-│   └── spoonacular.ts            # Spoonacular API wrapper functions
-├── store/
-│   └── moodStore.ts              # Zustand global store
-├── types/
-│   └── index.ts                  # Recipe, Mood, MoodEntry types
-└── .env.local                    # API keys (never commit this)
-```
-
----
 
 ## Getting Started
 
@@ -157,29 +114,6 @@ GET /recipes/{id}/information  → Fetch full recipe detail
 ```
 
 The free Spoonacular tier provides **150 API points/day**. Each search costs ~1 point and each detail fetch costs ~1 point — sufficient for development and demo use.
-
----
-
-## Roadmap
-
-- [x] Mood picker UI with 6 emotion states
-- [x] Dynamic theming system per mood
-- [x] Spoonacular API integration (server-side)
-- [x] Recipe grid with loading skeletons
-- [x] Recipe detail page with ingredient checklist
-- [x] Servings adjuster
-- [x] Save/bookmark recipes (localStorage)
-- [x] Mood history sidebar
-- [ ] **Emotion detection via webcam** *(face-api.js — April 30)*
-- [ ] Offline support / PWA
-- [ ] Share recipe feature
-- [ ] Dietary filter (vegetarian, gluten-free, etc.)
-
----
-
-## Contributing
-
-Pull requests are welcome. For major changes, please open an issue first to discuss what you'd like to change.
 
 ---
 
