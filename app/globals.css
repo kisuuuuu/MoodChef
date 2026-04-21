@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #fdf6ee;
+  --accent: #d85a30;
+  --card: #fff8f2;
+  --text: #4a1b0c;
+}
+
+html,
+body {
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100%;
+  transition: background 0.4s ease, color 0.3s ease;
+}
+
+* {
+  border-color: color-mix(in srgb, var(--text) 16%, transparent);
+}
+
+body {
+  font-family: "Space Grotesk", "Segoe UI", sans-serif;
+}
+
+@layer utilities {
+  .card-surface {
+    background: var(--card);
+  }
+
+  .accent-color {
+    color: var(--accent);
+  }
+
+  .accent-bg {
+    background: var(--accent);
+  }
+}
