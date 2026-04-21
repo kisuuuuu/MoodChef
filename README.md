@@ -117,12 +117,6 @@ The free Spoonacular tier provides **150 API points/day**. Each search costs ~1 
 
 ---
 
-## License
-
-[MIT](LICENSE)
-
----
-
 ## Acknowledgements
 
 - [Spoonacular](https://spoonacular.com/food-api) — recipe data API
