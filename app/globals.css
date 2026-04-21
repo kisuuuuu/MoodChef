@@ -3,10 +3,16 @@
 @tailwind utilities;
 
 :root {
-  --bg: #fdf6ee;
-  --accent: #d85a30;
-  --card: #fff8f2;
-  --text: #4a1b0c;
+  --bg: #f5f1e8;
+  --bg-soft: #fffdf8;
+  --bg-glow: #f0e4d2;
+  --accent: #9b7a56;
+  --card: #fffaf1;
+  --text: #45362a;
+  --header-bg: #efe4d2;
+  --header-text: #5a4735;
+  --pill-bg: #e7d7bf;
+  --pill-border: #ceb998;
 }
 
 html,
@@ -23,6 +29,9 @@ body {
 
 body {
   font-family: "Space Grotesk", "Segoe UI", sans-serif;
+  background-image:
+    radial-gradient(circle at 20% -20%, var(--bg-soft) 0%, transparent 40%),
+    radial-gradient(circle at 90% 10%, var(--bg-glow) 0%, transparent 28%);
 }
 
 @layer utilities {
@@ -36,5 +45,16 @@ body {
 
   .accent-bg {
     background: var(--accent);
+  }
+
+  .theme-header {
+    background: var(--header-bg);
+    color: var(--header-text);
+  }
+
+  .theme-pill {
+    background: var(--pill-bg);
+    border-color: var(--pill-border);
+    color: var(--header-text);
   }
 }

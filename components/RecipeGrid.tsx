@@ -10,7 +10,7 @@ type Props = {
 };
 
 function SkeletonCard() {
-  return <div className="h-80 animate-pulse rounded-2xl border card-surface" />;
+  return <div className="h-80 animate-pulse rounded-3xl border border-black/10 card-surface" />;
 }
 
 export default function RecipeGrid({ recipes, isLoading }: Props) {
@@ -18,8 +18,8 @@ export default function RecipeGrid({ recipes, isLoading }: Props) {
 
   if (isLoading) {
     return (
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {Array.from({ length: 6 }).map((_, idx) => (
+      <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 sm:grid-cols-2">
+        {Array.from({ length: 4 }).map((_, idx) => (
           <SkeletonCard key={idx} />
         ))}
       </div>
@@ -36,7 +36,7 @@ export default function RecipeGrid({ recipes, isLoading }: Props) {
   }
 
   return (
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 sm:grid-cols-2">
       {recipes.map((recipe, idx) => (
         <RecipeCard
           key={recipe.id}

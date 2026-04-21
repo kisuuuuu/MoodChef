@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { moodMap } from "@/lib/moodMap";
-import { applyTheme } from "@/lib/themes";
+import { applyDefaultTheme, applyTheme } from "@/lib/themes";
 import { useMoodStore } from "@/store/moodStore";
 
 export function useMood() {
@@ -14,7 +14,10 @@ export function useMood() {
   const resetMood = useMoodStore((state) => state.resetMood);
 
   useEffect(() => {
-    if (!currentMood) return;
+    if (!currentMood) {
+      applyDefaultTheme();
+      return;
+    }
     applyTheme(moodMap[currentMood].theme);
   }, [currentMood]);
 

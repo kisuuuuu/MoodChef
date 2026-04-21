@@ -17,10 +17,12 @@ export default function HomePage() {
       {!currentMood ? (
         <MoodPicker />
       ) : (
-        <section className="mx-auto max-w-6xl space-y-6 px-4 py-8">
-          <header>
-            <h1 className="text-3xl font-bold capitalize">{currentMood} recipes</h1>
-            <p className="mt-1 text-sm opacity-80">Mood-aware dishes curated from Spoonacular.</p>
+        <section className="mx-auto max-w-6xl space-y-6 px-4 py-10">
+          <header className="text-center">
+            <h1 className="text-4xl font-semibold text-[#2f2d67]">Recipes for when you're feeling {currentMood}</h1>
+            <p className="mt-2 text-lg text-[#6e6c98]">
+              {isLoading ? "Finding delicious options for you..." : `${recipes.length} delicious options to choose from`}
+            </p>
           </header>
 
           {error ? (
