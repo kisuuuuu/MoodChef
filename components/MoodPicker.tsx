@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { useMood } from "@/hooks/useMood";
 import { Mood } from "@/types";
+import { useState, useEffect } from "react";
 
 const moods: Array<{ mood: Mood; icon: string; tagline: string }> = [
   { mood: "stressed", icon: "😰", tagline: "Quick comfort food to ease your mind" },
@@ -26,16 +27,59 @@ const moodCardClasses: Record<Mood, string> = {
 export default function MoodPicker() {
   const { setMood } = useMood();
   const router = useRouter();
+  const [showEmotionDetector, setShowEmotionDetector] = useState(false);
 
   const handleSelect = (mood: Mood) => {
     setMood(mood);
     router.push("/");
   };
 
+  if (showEmotionDetector) {
+    return (
+      <section className="mx-auto max-w-2xl px-4 py-10">
+        <button
+          type="button"
+          onClick={() => setShowEmotionDetector(false)}
+          className="mb-6 text-blue-600 hover:underline"
+        >
+          ← Back
+        </button>
+        <div className="dynamic-import-wrapper">
+          {/* Dynamically imported to avoid loading face-api on every page */}
+          <EmotionDetectorAsync />
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="mx-auto max-w-4xl px-4 py-10">
       <h1 className="mb-3 text-center text-4xl font-semibold">How are you feeling today?</h1>
       <p className="mb-10 text-center text-base text-slate-500">Choose your mood and we'll recommend the perfect recipes</p>
+      
+      {/* Emotion Detection Button */}
+      <motion.button
+        whileHover={{ scale: 1.03 }}
+        type="button"
+        onClick={() => setShowEmotionDetector(true)}
+        className="mb-8 w-full rounded-2xl border-2 border-purple-400 bg-gradient-to-r from-purple-50 to-purple-100 p-4 text-center shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md"
+      >
+        <div className="text-4xl">📹</div>
+        <div className="mt-3 text-2xl font-semibold text-purple-700">Detect with Camera</div>
+        <div className="mx-auto mt-2 max-w-[16rem] text-sm leading-6 text-purple-600">
+          Let us detect your emotion using your webcam
+        </div>
+      </motion.button>
+
+      <div className="relative mb-8">
+        <div className="absolute inset-0 flex items-center">
+          <div className="w-full border-t border-gray-300"></div>
+        </div>
+        <div className="relative flex justify-center">
+          <span className="bg-white px-2 text-sm text-gray-500">or choose manually</span>
+        </div>
+      </div>
+
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
         {moods.map((item) => (
           <motion.button
@@ -53,4 +97,21 @@ export default function MoodPicker() {
       </div>
     </section>
   );
+}
+
+// Async component to lazy load emotion detector
+function EmotionDetectorAsync() {
+  const [EmotionDetector, setEmotionDetector] = useState<React.ComponentType | null>(null);
+
+  useEffect(() => {
+    import("./EmotionDetector").then((module) => {
+      setEmotionDetector(() => module.default);
+    });
+  }, []);
+
+  if (!EmotionDetector) {
+    return <div className="text-center text-gray-600">Loading emotion detector...</div>;
+  }
+
+  return <EmotionDetector />;
 }
