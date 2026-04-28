@@ -26,6 +26,15 @@ const emotionEmojis: Record<string, string> = {
   neutral: "😐"
 };
 
+const moodEmojis: Record<Mood, string> = {
+  stressed: "😰",
+  happy: "😊",
+  sad: "😔",
+  calm: "😌",
+  focused: "🎯",
+  excited: "🤩"
+};
+
 export default function EmotionDetector() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -175,6 +184,8 @@ export default function EmotionDetector() {
     router.push("/");
   };
 
+  const detectedMood = detectedEmotion ? emotionToMoodMap[detectedEmotion] || "calm" : null;
+
   if (error && !isLoading && !modelsLoaded) {
     return (
       <section className="mx-auto max-w-2xl px-4 py-10">
@@ -236,18 +247,16 @@ export default function EmotionDetector() {
         )}
 
         {/* Detected Emotion */}
-        {detectedEmotion && (
+        {detectedEmotion && detectedMood && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="rounded-2xl border-2 border-green-200 bg-green-50 p-6 text-center"
           >
             <div className="mb-3 text-6xl">
-              {emotionEmojis[detectedEmotion]}
+              {moodEmojis[detectedMood]}
             </div>
-            <p className="text-lg font-semibold capitalize text-green-700">
-              Detected: {detectedEmotion}
-            </p>
+            <p className="text-lg font-semibold capitalize text-green-700">Detected mood: {detectedMood}</p>
             <p className="mt-2 text-sm text-green-600">
               Confidence: {confidence}%
             </p>
